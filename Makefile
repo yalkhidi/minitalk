@@ -9,12 +9,12 @@ CLIENT_NAME:= client
 LIBFT:= libft/libft.a
 PRINTF:= ft_printf/libftprintf.a
 
-all: $(LIBFT) $(CLIENT_NAME) $(SERVER_NAME)
+all: $(CLIENT_NAME) $(SERVER_NAME)
 
-$(SERVER_NAME): $(LIBFT) $(PRINTF)
+$(SERVER_NAME): $(SERVER) $(LIBFT) $(PRINTF) 
 	$(CC) $(CFLAGS) $(SERVER) $(LIBFT) $(PRINTF) -o $@
 
-$(CLIENT_NAME): server
+$(CLIENT_NAME): $(CLIENT) $(SERVER) $(LIBFT) $(PRINTF) 
 	$(CC) $(CFLAGS) $(CLIENT) $(LIBFT) $(PRINTF) -o $@
 
 $(LIBFT):
