@@ -6,28 +6,13 @@
 /*   By: yalkhidi <yalkhidi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 11:43:48 by yalkhidi          #+#    #+#             */
-/*   Updated: 2025/05/01 19:33:46 by yalkhidi         ###   ########.fr       */
+/*   Updated: 2025/05/01 19:49:29 by yalkhidi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	send_message(pid_t pid, char letter)
-{
-	int		j;
 
-	j = 7;
-	while (j >= 0)
-	{
-		if (letter % 2 == 1)
-			kill(pid, SIGUSR1);
-		else if (letter % 2 == 0)
-			kill(pid, SIGUSR2);
-		letter = letter / 2;
-		usleep(300);
-		j--;
-	}
-}
 // void	send_message(pid_t pid, char letter)
 // {
 // 	int		j;
@@ -53,8 +38,33 @@ void	send_message(pid_t pid, char letter)
 // 	ft_printf("%s\n", let);
 // }
 
+void	send_message(pid_t pid, char letter)
+{
+	int		j;
 
+	j = 7;
+	while (j >= 0)
+	{
+		if (letter % 2 == 1)
+			kill(pid, SIGUSR1);
+		else if (letter % 2 == 0)
+			kill(pid, SIGUSR2);
+		letter = letter / 2;
+		usleep(300);
+		j--;
+	}
+}
+pid_t	get_pid(char *av)
+{
+	pid_t	pid;
 
+	pid = ft_atoi(av);
+	if (pid == -1)
+		exit(1);
+	else if (pid > 0 || pid < 0)
+		return (pid);
+	return (pid);
+}
 int	main(int ac, char **av)
 {
 	pid_t	pid;
