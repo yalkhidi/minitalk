@@ -6,7 +6,7 @@
 /*   By: yalkhidi <yalkhidi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 11:45:01 by yalkhidi          #+#    #+#             */
-/*   Updated: 2025/05/01 17:55:14 by yalkhidi         ###   ########.fr       */
+/*   Updated: 2025/05/01 19:30:17 by yalkhidi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,25 +32,35 @@ void	handle_in(int sig)
 // 	exit(1);
 // }
 
+
+char	b_to_c(int	*bin)
+{
+	char	result;
+	int				i;
+	
+	result = 0;
+	i = 0;
+	while (i < 8)
+	{
+		result = (result << 1) | (bin[i] & 1);
+		i++;
+	}
+	return(result);
+}
+
 void	receive_message(int sig)
 {
 	static int	bits[8];
-	static int	bit_index = 0;
+	static int	bit_index = 7;
 	int			i;
 	char		letter;
 
 	if (sig == SIGUSR1)
-	{
 		bits[bit_index] = 1;
-		printf("received 1\n");
-	}
 	else if(sig == SIGUSR2)
-	{
 		bits[bit_index] = 0;
-		printf("received 0\n");
-	}
-	bit_index++;
-	if(bit_index == 8)
+	bit_index--;
+	if(bit_index < 0)
 	{
 		letter = 0;
 		i = 0;
@@ -59,12 +69,12 @@ void	receive_message(int sig)
 			letter = letter * 2 + bits[i];
 			i++;
 		}
+		if(letter == '\0')
+			ft_printf("\n");
 		ft_printf("%c", letter);
-		bit_index = 0;
+		bit_index = 7;
 	}
 }
-
-
 
 int	main(void)
 {
