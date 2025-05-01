@@ -6,7 +6,7 @@
 /*   By: yalkhidi <yalkhidi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 11:43:48 by yalkhidi          #+#    #+#             */
-/*   Updated: 2025/05/01 19:19:01 by yalkhidi         ###   ########.fr       */
+/*   Updated: 2025/05/01 19:33:46 by yalkhidi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,43 @@
 void	send_message(pid_t pid, char letter)
 {
 	int		j;
-	char	let[8];
 
 	j = 7;
 	while (j >= 0)
 	{
 		if (letter % 2 == 1)
-		{
-			let[j] = '1';
 			kill(pid, SIGUSR1);
-		}
 		else if (letter % 2 == 0)
-		{
-			let[j] = '0';
 			kill(pid, SIGUSR2);
-		}
 		letter = letter / 2;
 		usleep(300);
 		j--;
 	}
-	ft_printf("%s\n", let);
 }
+// void	send_message(pid_t pid, char letter)
+// {
+// 	int		j;
+// 	char	let[8];
+
+// 	j = 7;
+// 	while (j >= 0)
+// 	{
+// 		if (letter % 2 == 1)
+// 		{
+// 			let[j] = '1';
+// 			kill(pid, SIGUSR1);
+// 		}
+// 		else if (letter % 2 == 0)
+// 		{
+// 			let[j] = '0';
+// 			kill(pid, SIGUSR2);
+// 		}
+// 		letter = letter / 2;
+// 		usleep(300);
+// 		j--;
+// 	}
+// 	ft_printf("%s\n", let);
+// }
 
 
 

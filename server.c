@@ -6,7 +6,7 @@
 /*   By: yalkhidi <yalkhidi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 11:45:01 by yalkhidi          #+#    #+#             */
-/*   Updated: 2025/05/01 19:30:17 by yalkhidi         ###   ########.fr       */
+/*   Updated: 2025/05/01 19:34:35 by yalkhidi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	receive_message(int sig)
 			letter = letter * 2 + bits[i];
 			i++;
 		}
-		if(letter == '\0')
+		if (letter == '\0')
 			ft_printf("\n");
 		ft_printf("%c", letter);
 		bit_index = 7;
