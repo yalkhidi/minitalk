@@ -51,7 +51,7 @@ char	b_to_c(int	*bin)
 void	receive_message(int sig)
 {
 	static int	bits[8];
-	static int	bit_index = 7;
+	static int	bit_index = 0;
 	int			i;
 	char		letter;
 
@@ -59,20 +59,20 @@ void	receive_message(int sig)
 		bits[bit_index] = 1;
 	else if(sig == SIGUSR2)
 		bits[bit_index] = 0;
-	bit_index--;
-	if(bit_index < 0)
+	bit_index++;
+	if(bit_index == 8)
 	{
 		letter = 0;
 		i = 0;
-		while(i < 8)
+		while (i < 8)
 		{
-			letter = letter * 2 + bits[i];
+			letter |= (bits[i] << i);
 			i++;
 		}
 		if (letter == '\0')
 			ft_printf("\n");
 		ft_printf("%c", letter);
-		bit_index = 7;
+		bit_index = 0;
 	}
 }
 
